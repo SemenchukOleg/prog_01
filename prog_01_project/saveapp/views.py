@@ -19,8 +19,8 @@ def reload_data(request):
             teams_response = requests.get(BASE_URL + league_code + '/teams', headers=headers, params=filter)
             table_row_data = teams_response.json()
 
-            #возвращает котреж (obj, False) или создает объект лиги 
-            league = Leagues.objects.get_or_create(
+            
+            league = Leagues.objects.get_or_create(                       #возвращает котреж (obj, False) или создает объект лиги
                 legue_id = table_row_data['competition']['id'],
                 league = table_row_data['competition']['name'],
                 league_code = table_row_data['competition']['code'],
@@ -28,8 +28,8 @@ def reload_data(request):
                 )
             
             for team in table_row_data['teams']:
-                #создает команду привязанную к лиге
-                team_create = league[0].teams_set.get_or_create(
+                
+                team_create = league[0].teams_set.get_or_create(          #возвращает котреж (obj, False) или создает объект команды привязанной к лиге
                     team_id = team['id'],
                     team_name = team['name'],
                     team_website = team['website'],
@@ -37,8 +37,8 @@ def reload_data(request):
                     season = season,    
                 )
                 for person in team['squad']:
-                    #создает игрока привязанного к команде
-                    team_create[0].players_set.get_or_create(
+                    
+                    team_create[0].players_set.get_or_create(              #возвращает котреж (obj, False) или создает объект игрока к команде
                         player_id = person['id'],
                         name = person['name'],
                         position = person['position'],
