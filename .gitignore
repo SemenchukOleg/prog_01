@@ -16,3 +16,4 @@ prog_01_venv/
 *.sqlite3
 *.sh
 hello.py
+*.com.sh.swp
