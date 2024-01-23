@@ -21,7 +21,31 @@
 {% block sidebar %}
 <div id="content-related">
     <div class="module" id="recent-actions-module">
-        <h2> <a href="{% url 'reload_data' %}" style="color:red"> Push to Reload data</a></h2>
+        <form action="{% url 'reload_data' %}" method="POST">
+            {% csrf_token %}
+            <h2> Reload data</h2>
+              
+              <div >
+                <input  type="checkbox" name='Leagues' value="Leagues" >
+                <label  for="Leagues">Leagues</label>
+              <br><br>
+                <input  type="checkbox" name="Players" value="Players" >
+                <label for="Players">Players</label>
+              <br><br>
+                <input  type="checkbox" name="Teams" value="Teams" >
+                <label  for="Teams">Teams</label>
+              </div>
+              <br>
+              <select name="season">
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+               </select>
+               <label  for="season">Choose year</label>
+              <br><br>
+              <input type="submit" value="Отправить">
+            
+        </form>
         <h2>{% translate 'Recent actions' %}</h2>
         <h3>{% translate 'My actions' %}</h3>
             {% load log %}

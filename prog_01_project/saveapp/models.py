@@ -3,39 +3,47 @@ from django.contrib import admin
 
 # Create your models here.
 
-class Leagues(models.Model):
+class League(models.Model):
     legue_id = models.IntegerField(default=0)
-    league = models.CharField(max_length=20, default='')
+    name = models.CharField(max_length=20, default='')
     league_code = models.CharField(max_length=5, default='')
     league_emblem = models.URLField(default='')
+    date_create = models.DateTimeField(auto_now_add = True)
+    date_update = models.DateTimeField(editable = True, auto_now = True)
 
     def __str__(self):
-        return self.league
+        return self.name
     
 
 
 
-class Teams(models.Model):
+class Team(models.Model):
     team_id = models.IntegerField(default=0)
-    team_name = models.CharField(max_length=20, default='')
+    name = models.CharField(max_length=20, default='')
     team_emblem = models.URLField(default='')
-    league = models.ForeignKey(Leagues, on_delete=models.CASCADE, default=0)
+    league = models.CharField(max_length=20, default='')
     team_website = models.URLField(default='')
     season = models.IntegerField(blank=True, null=True, default=0)
+    date_create = models.DateTimeField(auto_now_add = True)
+    date_update = models.DateTimeField (editable=True, auto_now = True)
+
     def __str__(self):
-        return self.team_name
+        return self.name
 
 
 
 
 
-class Players(models.Model):
+class Player(models.Model):
     player_id = models.IntegerField(default=0)
     name = models.CharField(max_length=30, default='')
-    position = models.CharField(max_length=20, default='')
+    position = models.CharField(max_length=20, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
-    nationality = models.CharField(max_length=20, default='')
+    nationality = models.CharField(max_length=20, default='', blank=True, null=True)
     season = models.IntegerField(blank=True, null=True, default=0)
-    team = models.ForeignKey(Teams, on_delete=models.CASCADE, default=0)
+    team = models.CharField(max_length=20, default='')
+    date_create = models.DateTimeField(auto_now_add = True)
+    date_update = models.DateTimeField(editable = True, auto_now = True)
+
     def __str__(self):
         return self.name

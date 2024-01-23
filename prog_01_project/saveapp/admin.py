@@ -1,10 +1,12 @@
 from django.contrib import admin
-from saveapp.models import Leagues, Teams, Players
+from saveapp.models import League, Team, Player
 
+class LeagueAdmin(admin.ModelAdmin):
+    list_display = ('name', 'date_update')
 
-class TeamsAdmin(admin.ModelAdmin):
-    search_fields = ('team_name',)
-    list_display = ('team_name',)
+class TeamAdmin(admin.ModelAdmin):
+    search_fields = ('name',)
+    list_display = ('name',)
     list_filter = ('league', 'season')
 
 
@@ -16,8 +18,8 @@ class PlayerAdmin(admin.ModelAdmin):
 
 # Register your models here.
 
-admin.site.register(Leagues)
-admin.site.register(Teams, TeamsAdmin)
-admin.site.register(Players, PlayerAdmin)
+admin.site.register(League, LeagueAdmin)
+admin.site.register(Team, TeamAdmin)
+admin.site.register(Player, PlayerAdmin)
 
 
